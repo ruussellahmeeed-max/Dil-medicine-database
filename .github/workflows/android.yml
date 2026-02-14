@@ -19,6 +19,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      # ✅ Capacitor / Cordova missing file fix
+      - name: Fix Cordova Variables
+        run: |
+          mkdir -p android/capacitor-cordova-android-plugins
+          echo "ext {}" > android/capacitor-cordova-android-plugins/cordova.variables.gradle
+
       - name: Grant execute permission
         run: chmod +x android/gradlew
 
