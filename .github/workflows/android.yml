@@ -1,7 +1,8 @@
-name: Build Android APK
+name: Manual Build APK
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,13 +13,14 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Build APK
+    - name: Fix Permissions and Build
       run: |
         cd android
         chmod +x gradlew
-        ./gradlew assembleDebug
+        ./gradlew assembleDebug --stacktrace
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
-        name: Medicine-App
+        name: Final-Medicine-App
         path: android/app/build/outputs/apk/debug/app-debug.apk
+        
