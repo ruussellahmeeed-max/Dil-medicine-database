@@ -1,0 +1,5 @@
+{
+  "name": "DIL Medicine Database",
+  "description": "A lightweight, offline-first medicine database application designed for mobile devices. Search by code name or full name, manage your own database, and access information instantly without internet.",
+  "requestFramePermissions": []
+}
