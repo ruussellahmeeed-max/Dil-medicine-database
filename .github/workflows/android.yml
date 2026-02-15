@@ -14,23 +14,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # এটি Node.js ২২ সেটআপ করবে যাতে এরর না আসে
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
 
-      # --- এই ধাপটি অত্যন্ত জরুরি অফলাইন অ্যাপের জন্য ---
+      # এই ধাপটি আপনার অফলাইন ফাইলগুলো অ্যাপের ভেতরে ঢুকিয়ে দেবে
       - name: Build Web Assets and Sync
         run: |
           npm install
           npm run build
           npx cap sync android
-      # -------------------------------------------
 
       - name: Fix Cordova Module
         run: |
-          # সঠিক পাথে ফোল্ডার ও ফাইল তৈরি করা হচ্ছে
           mkdir -p android/app/capacitor-cordova-android-plugins
           echo "ext {}" > android/app/capacitor-cordova-android-plugins/cordova.variables.gradle
           
@@ -45,5 +49,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Medicine-App-Offline
+          name: Medicine-App-Final
           path: android/app/build/outputs/apk/debug/app-debug.apk
