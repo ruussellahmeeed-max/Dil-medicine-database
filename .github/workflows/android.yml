@@ -14,7 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # এটি Node.js ২২ সেটআপ করবে যাতে এরর না আসে
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -26,10 +25,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      # এই ধাপটি আপনার অফলাইন ফাইলগুলো অ্যাপের ভেতরে ঢুকিয়ে দেবে
+      # এখানে npm install এর সাথে --legacy-peer-deps যোগ করা হয়েছে এরর এড়াতে
       - name: Build Web Assets and Sync
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
           npx cap sync android
 
