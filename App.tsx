@@ -806,7 +806,11 @@ const SettingsView: React.FC<{
               <h3 className="font-black uppercase text-slate-800 mb-2">Device Storage</h3>
               <p className="text-sm text-slate-500 mb-6">Backup to local memory or restore from a JSON file.</p>
               <div className="grid grid-cols-2 gap-4">
-                <button onClick={exportData} className="flex items-center justify-center space-x-2 py-4 bg-gray-50 text-[#ED1C24] rounded-2xl font-black uppercase text-xs border border-red-50 hover:bg-red-50">
+                <button 
+  onClick={handleBackupToDevice} 
+  className="flex items-center justify-center space-x-2 py-4 bg-gray-50 text-[#ED1C24]"
+>
+
                   <Download className="w-4 h-4" /> <span>Backup</span>
                 </button>
                 <button onClick={() => fileInputRef.current?.click()} className="flex items-center justify-center space-x-2 py-4 bg-gray-50 text-blue-600 rounded-2xl font-black uppercase text-xs border border-blue-50 hover:bg-blue-50">
