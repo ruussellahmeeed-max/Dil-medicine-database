@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Plus, Search, X, History, Trash2, ArrowLeft, Pill, Info, Save, Star, Flag, Home, ChevronDown, ChevronRight, Settings, Edit2, Check, Syringe, ClipboardList, Database, Layers, ArrowUpDown, AlertTriangle, RotateCcw, Download, Upload, Cloud, Smartphone, Globe, Loader2 } from 'lucide-react';
 import { Category, Medicine, MedicineDetails } from './types';
 
@@ -89,6 +90,30 @@ const INITIAL_DATA: Medicine[] = [
 ];
 
 const App: React.FC = () => {
+    // নতুন ব্যাকআপ ফাংশন
+  const handleBackupToDevice = async () => {
+    try {
+      const dataToSave = JSON.stringify({
+        medicines,
+        categories,
+        recycleBin,
+        timestamp: new Date().toISOString()
+      });
+
+      await Filesystem.writeFile({
+        path: 'dil_medicine_backup.json',
+        data: dataToSave,
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8,
+      });
+
+      alert("সফল! ব্যাকআপ ফাইলটি আপনার ফোনের Documents ফোল্ডারে সেভ হয়েছে।");
+    } catch (error) {
+      console.error('Backup error:', error);
+      alert("ব্যাকআপ নিতে সমস্যা হয়েছে। স্টোরেজ পারমিশন চেক করুন।");
+    }
+  };
+  
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [recycleBin, setRecycleBin] = useState<Medicine[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
